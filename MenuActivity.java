@@ -1,12 +1,9 @@
-package cn.edu.gdpt.iterpretsdreams.menu;
+package cn.edu.gdpt.iterpretsdreams;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.util.JsonReader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +13,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,39 +21,34 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.edu.gdpt.iterpretsdreams.R;
-import cn.edu.gdpt.iterpretsdreams.login.loginActivity;
-import cn.edu.gdpt.iterpretsdreams.product;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import cn.edu.gdpt.iterpretsdreams.databinding.ActivityMenuBinding;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
-
+    ImageView iv_search;
     private GridView mGV;
     private List<product> list;
     private AutoCompleteTextView actv_seach;
     ImageView iv_user;
     Button btn_history;
-    private ImageButton iv_search;//Button
-
+    ActivityMenuBinding binding;
+    private MyGridview mygv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
-        initView();
-
-
-
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_menu);
+        iv_search = findViewById(R.id.iv_search);
+        iv_search.setOnClickListener(this);
         iv_user = findViewById(R.id.iv_user);
         btn_history = findViewById(R.id.btn_history);
+        mygv = (MyGridview) findViewById(R.id.ggggvvvv);
         initform();
         Search();
         touser();
         toHistory();
+        GetInfo();
+
+
     }
 
     private void toHistory() {
@@ -82,14 +73,27 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    ArrayAdapter arrayAdapter ;
     private void Search() {
         actv_seach = findViewById(R.id.actv_seach);
-        String name[] = getResources().getStringArray(R.array.name);
+
         //适配器
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, name);
+        arrayAdapter= new ArrayAdapter(this, android.R.layout.simple_list_item_1, Okhttpuntil.dates);
         //给控件设置适配器
         actv_seach.setAdapter(arrayAdapter);
+
+
+        actv_seach.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MenuActivity.this, searchActivity.class);
+                intent.putExtra("qqqq",Okhttpuntil.dates.get(position));
+                startActivity(intent);
+            }
+        });
     }
+
+
 
     private void initform() {
         list = new ArrayList<product>();
@@ -111,7 +115,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MenuActivity.this, "点击了第" + position + "项", Toast.LENGTH_LONG).show();
+                Intent intent=new Intent(MenuActivity.this,Activity_xinzuo.class);
+                intent.putExtra("name",list.get(position).getName());
+                intent.putExtra("img",list.get(position).getIdlogo());
+                startActivity(intent);
             }
         });
 
@@ -122,16 +129,27 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_search:
-                startActivity(new Intent(this, searchActivity.class));
-                break;
+                    Okhttpuntil.dates.add(actv_seach.getText() + "");
 
+                    Intent intent = new Intent(this, searchActivity.class);
+                    intent.putExtra("qqqq",actv_seach.getText()+"");
+                    startActivity(intent);
+
+                break;
         }
     }
 
-    private void initView() {
-        iv_search = (ImageButton) findViewById(R.id.iv_search);
+    @Override
+    protected void onResume() {
+       try{
+           //适配器
+           arrayAdapter= new ArrayAdapter(this, android.R.layout.simple_list_item_1, Okhttpuntil.dates);
+           //给控件设置适配器
+           actv_seach.setAdapter(arrayAdapter);
+       }catch (Exception e){
 
-        iv_search.setOnClickListener(this);
+       }
+        super.onResume();
     }
 
     private class MyAdapter extends BaseAdapter {
@@ -159,5 +177,35 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             tvname.setText(list.get(position).getName());
             return view;
         }
+    }
+
+    /*网络请求获取列表*/
+    public void GetInfo() {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    MenListBean menListBean = Okhttpuntil.synGetRequesr("http://v.juhe.cn/dream/category?key=c45a4c712fa4f5aac2571df29fe8f47f", MenListBean.class);
+                    if (menListBean != null) {
+                        List<MenListBean.ResultBean> result = menListBean.getResult();
+                        ActivityMainItemAdapter<MenListBean.ResultBean> adapter = new ActivityMainItemAdapter(result, MenuActivity.this, R.layout.grid_item1, BR.men);
+                        binding.setAdapters1(adapter);
+
+                    adapter.setSuccessClick(new SuccessClick<MenListBean.ResultBean>() {
+                        @Override
+                        public void ResultBean(MenListBean.ResultBean resultBean) {
+                            Intent intent=new Intent(MenuActivity.this,searchActivity.class);
+                            intent.putExtra("id",resultBean.getFid());
+                            startActivity(intent);
+                        }
+                    });
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }
