@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<data>
+
+    <variable
+        name="xinzuo"
+        type="cn.edu.gdpt.iterpretsdreams.XinzhuoBean" />
+    <variable
+        name="week"
+        type="cn.edu.gdpt.iterpretsdreams.Xinzhuoweek" />
+
+</data>
+
+    <LinearLayout
+        android:background="#CAE8EE"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <ImageView
+                    imgname="@{xinzuo.drawimg}"
+                    android:src="@drawable/byz"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp" />
+                <Spinner
+                    android:id="@+id/mysp"
+                    android:entries="@array/dates"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"></Spinner>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:gravity="left"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="星座:"/>
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="@{xinzuo.name}"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:gravity="left"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="幸运色:"/>
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="@{xinzuo.color}"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:gravity="left"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="健康指数:"/>
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="@{xinzuo.color}"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:gravity="left"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="发财指数:"/>
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="@{xinzuo.money}"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:gravity="left"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="幸运数字:"/>
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="@{xinzuo.number+@string/space}"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:gravity="left"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="最好的朋友:"/>
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="@{xinzuo.QFriend}"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:gravity="left"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="工作成功率:"/>
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="@{xinzuo.work}"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:gravity="left"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="恋爱成功率:"/>
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"
+                        android:text="@{xinzuo.love}"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="建议:"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:textColor="#FFAB00"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="@{xinzuo.summary}"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:text="这周"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textSize="25dp"
+                    android:text="爱情建议:"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="#FFAB00"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="@{week.love}"/>
+
+<View
+    android:layout_width="match_parent"
+    android:layout_height="2dp"
+    android:background="#838080"></View>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textSize="25dp"
+                    android:text="钱财建议:"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="#FFAB00"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="@{week.money}"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#838080"></View>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textSize="25dp"
+                    android:text="工作建议:"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="#FFAB00"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="@{week.work}"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+</layout>

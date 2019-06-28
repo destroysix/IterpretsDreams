@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<data>
+    <variable
+        name="bean"
+        type="cn.edu.gdpt.iterpretsdreams.MyResultBean.ResultBean"></variable>
+</data>
+
+
+    <LinearLayout
+        android:background="@drawable/fengmian"
+        android:orientation="vertical"
+        android:gravity="center"
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{bean.title}"
+            android:textSize="25dp"/>
+        <TextView
+            android:textColor="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="解释:"
+            android:textSize="30dp"/>
+        <TextView
+            android:textColor="@android:color/white"
+            android:text="@{bean.des}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+    <Button
+        android:id="@+id/btlast"
+        android:textSize="30dp"
+        android:textColor="@android:color/white"
+        android:background="#FB8C00"
+        android:text="上一条"
+        android:layout_marginRight="20dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp" />    <Button
+    android:id="@+id/btnext"
+    android:textSize="30dp"
+    android:textColor="@android:color/white"
+    android:background="#FB8C00"
+    android:text="下一条"
+    android:layout_width="150dp"
+    android:layout_height="50dp" />
+</LinearLayout>
+    </LinearLayout>
+
+</layout>
